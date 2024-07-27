@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import userRoutes from './Routes/userRoutes.js';
 import postRoutes from "./Routes/postRoutes.js";
 import messageRoutes from "./Routes/messageRoutes.js";
+import productRoutes from "./Routes/productRoutes.js";
 import { v2 as cloudinary } from "cloudinary";
 import { app, server } from './socket/socket.js';
 import path from 'path';
@@ -33,6 +34,7 @@ app.use(cookieParser());
 app.use('/api/users', userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/messages", messageRoutes);
+app.use("/api/products", productRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/frontend/dist")));

@@ -9,6 +9,7 @@ import useLogout from "../../hooks/useLogout";
 import authScreenAtom from "../../atoms/authAtom";
 import { BsFillChatQuoteFill } from "react-icons/bs";
 import { MdOutlineSettings } from "react-icons/md";
+import { WiMoonAltFirstQuarter } from "react-icons/wi";
 
 const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -37,7 +38,7 @@ const Header = () => {
         cursor={"pointer"}
         alt="logo"
         w={6}
-        src={colorMode === "dark" ? "/light-logo.svg" : "/dark-logo.svg"}
+        as={WiMoonAltFirstQuarter}
         onClick={toggleColorMode}
       />
 

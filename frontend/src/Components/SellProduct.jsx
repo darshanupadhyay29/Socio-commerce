@@ -1,6 +1,7 @@
 import { AddIcon } from "@chakra-ui/icons";
 import {
   Button,
+  Center,
   CloseButton,
   Flex,
   FormControl,
@@ -24,48 +25,46 @@ import { BsFillImageFill } from "react-icons/bs";
 import { useRecoilState, useRecoilValue } from "recoil";
 import userAtom from "../../atoms/userAtom";
 import useShowToast from "../../hooks/useShowToast";
-import postsAtom from "../../atoms/postAtoms";
 import { useParams } from "react-router-dom";
+import productAtom from "../../atoms/productAtoms";
 
-const MAX_CHAR = 500;
 
-const CreatePost = () => {
+
+const SellProduct = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [postText, setPostText] = useState("");
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
   const { handleImageChange, imgUrl, setImgUrl } = usePreviewImg();
   const imageRef = useRef(null);
-  const [remainingChar, setRemainingChar] = useState(MAX_CHAR);
   const user = useRecoilValue(userAtom);
   const showToast = useShowToast();
   const [loading, setLoading] = useState(false);
-  const [posts, setPosts] = useRecoilState(postsAtom);
+  const [products, setProducts] = useRecoilState(productAtom);
   const { username } = useParams();
 
   const handleTextChange = (e) => {
-    const inputText = e.target.value;
-
-    if (inputText.length > MAX_CHAR) {
-      const truncatedText = inputText.slice(0, MAX_CHAR);
-      setPostText(truncatedText);
-      setRemainingChar(0);
-    } else {
-      setPostText(inputText);
-      setRemainingChar(MAX_CHAR - inputText.length);
-    }
+      const { name, value } = e.target;  
+      
+      if (name === 'title') setTitle(value);
+      else if (name === 'price') setPrice(value);
+      else if (name === 'description') setDescription(value);
   };
 
-  const handleCreatePost = async () => {
+  const handleSellProduct = async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/posts/create", {
+      const res = await fetch("/api/products/sellproduct", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           postedBy: user._id,
-          text: postText,
-          img: imgUrl,
+          title: title,
+          price: price,
+          description: description,
+          img:imgUrl,
         }),
       });
 
@@ -74,12 +73,14 @@ const CreatePost = () => {
         showToast("Error", data.error, "error");
         return;
       }
-      showToast("Success", "Post created successfully", "success");
+      showToast("Success", "Product added successfully", "success");
       if (username === user.username) {
-        setPosts([data, ...posts]);
+        setProducts([data, ...products]);
       }
       onClose();
-      setPostText("");
+        setTitle("");
+        setPrice("");
+        setDescription("");
       setImgUrl("");
     } catch (error) {
       showToast("Error", error, "error");
@@ -92,28 +93,37 @@ const CreatePost = () => {
     <>
       <Button
         position={"fixed"}
-        bottom={10}
+        bottom={20}
         right={5}
+        marginBottom={4}
         bg={useColorModeValue("gray.300", "gray.dark")}
         onClick={onOpen}
         size={{ base: "sm", sm: "md" }}
       >
-        Post
+        Sell
       </Button>
-
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
 
         <ModalContent>
-          <ModalHeader>Create post</ModalHeader>
+          <ModalHeader>Add new product</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
+              <Flex alignItems="center" justifyContent="center">
+                <BsFillImageFill
+                  style={{ cursor: "pointer" }}
+                  size={16}
+                  onClick={() => imageRef.current.click()}
+                />
+                Add photo
+              </Flex>
               <Textarea
-                placeholder="Post content goes here.."
+                              placeholder="Title"
+                              name="title"
                 onChange={handleTextChange}
-                value={postText}
+                value={title}
               />
               <Text
                 fontSize="xs"
@@ -121,21 +131,26 @@ const CreatePost = () => {
                 textAlign={"right"}
                 m={"1"}
                 color={"gray.800"}
-              >
-                {remainingChar}/{MAX_CHAR}
-              </Text>
+              ></Text>
+              <Textarea
+                              placeholder="Price"
+                              name="price"
+                onChange={handleTextChange}
+                value={price}
+              />
+              <Textarea
+                              placeholder="Description(Optional)"
+                              name="description"
+                onChange={handleTextChange}
+                value={description}
+              />
+              
 
               <Input
                 type="file"
                 hidden
                 ref={imageRef}
                 onChange={handleImageChange}
-              />
-
-              <BsFillImageFill
-                style={{ marginLeft: "5px", cursor: "pointer" }}
-                size={16}
-                onClick={() => imageRef.current.click()}
               />
             </FormControl>
 
@@ -159,10 +174,9 @@ const CreatePost = () => {
             <Button
               colorScheme="blue"
               mr={3}
-              onClick={handleCreatePost}
+              onClick={handleSellProduct}
               isLoading={loading}
-            >
-              Post
+            >Publish
             </Button>
           </ModalFooter>
         </ModalContent>
@@ -171,4 +185,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default SellProduct;

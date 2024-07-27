@@ -11,6 +11,7 @@ import UpdateProfilePage from "./Pages/UpdateProfilePage";
 import CreatePost from "./Components/CreatePost";
 import ChatPage from "./Pages/ChatPage";
 import { SettingsPage } from "./Pages/SettingsPage";
+import SellProduct from "./Components/SellProduct";
 
 function App() {
     const user = useRecoilValue(userAtom);
@@ -31,6 +32,7 @@ function App() {
                             user ? (
                                 <>
                                     <UserPage />
+                                    <SellProduct/>
                                     <CreatePost />
                                 </>
                             ) : (

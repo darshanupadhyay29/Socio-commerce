@@ -1,5 +1,5 @@
 import Post from "../models/postModel.js";
-import User from "../models/userModel.js";
+import User from "../models/UserModel.js";
 import { v2 as cloudinary } from "cloudinary";
 
 const createPost = async (req, res) => {

@@ -3,18 +3,17 @@ import { Box, Flex, Link, Text, VStack } from "@chakra-ui/layout";
 import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
 import { Portal } from "@chakra-ui/portal";
 import { Button, useToast } from "@chakra-ui/react";
-import { BsInstagram } from "react-icons/bs";
 import { CgMoreO } from "react-icons/cg";
 import { useRecoilValue } from "recoil";
 import userAtom from "../../atoms/userAtom";
 import { Link as RouterLink } from "react-router-dom";
 import useFollowUnfollow from "../../hooks/useFollowUnfollow";
 
-const UserHeader = ({ user }) => {
+const UserHeader = ({ user,setSelectProducts,myProducts }) => {
   const toast = useToast();
   const currentUser = useRecoilValue(userAtom); // logged in user
-  const { handleFollowUnfollow, following, updating } = useFollowUnfollow(user);
-
+    const { handleFollowUnfollow, following, updating } = useFollowUnfollow(user);
+   
   const copyURL = () => {
     const currentURL = window.location.href;
     navigator.clipboard.writeText(currentURL).then(() => {
@@ -44,7 +43,7 @@ const UserHeader = ({ user }) => {
               p={1}
               borderRadius={"full"}
             >
-              threads.net
+              socio.net
             </Text>
           </Flex>
         </Box>
@@ -88,12 +87,9 @@ const UserHeader = ({ user }) => {
         <Flex gap={2} alignItems={"center"}>
           <Text color={"gray.light"}>{user.followers.length} followers</Text>
           <Box w="1" h="1" bg={"gray.light"} borderRadius={"full"}></Box>
-          <Link color={"gray.light"}>instagram.com</Link>
+          <Link color={"gray.light"}>for you</Link>
         </Flex>
         <Flex>
-          <Box className="icon-container">
-            <BsInstagram size={24} cursor={"pointer"} />
-          </Box>
           <Box className="icon-container">
             <Menu>
               <MenuButton>
@@ -114,22 +110,29 @@ const UserHeader = ({ user }) => {
       <Flex w={"full"}>
         <Flex
           flex={1}
-          borderBottom={"1.5px solid white"}
+          borderBottom={myProducts ? "1.5px solid black" : "1.5px solid white"}
           justifyContent={"center"}
           pb="3"
           cursor={"pointer"}
+          color={myProducts ? "grey" : "white"}
         >
-          <Text fontWeight={"bold"}> Threads</Text>
+          <Text fontWeight={"bold"} onClick={() => setSelectProducts(false)}>
+            {" "}
+            Posts
+          </Text>
         </Flex>
         <Flex
           flex={1}
-          borderBottom={"1px solid gray"}
+          borderBottom={myProducts ? "1.5px solid white" : "1.5px solid black"}
           justifyContent={"center"}
-          color={"gray.light"}
+          color={myProducts ? "white" : "grey"}
           pb="3"
           cursor={"pointer"}
         >
-          <Text fontWeight={"bold"}> Replies</Text>
+          <Text fontWeight={"bold"} onClick={() => setSelectProducts(true)}>
+            {" "}
+            Products
+          </Text>
         </Flex>
       </Flex>
     </VStack>

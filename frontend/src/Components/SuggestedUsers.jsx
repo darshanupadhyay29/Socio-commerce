@@ -26,7 +26,8 @@ const SuggestedUsers = () => {
       }
     };
 
-    getSuggestedUsers();
+      getSuggestedUsers();
+      console.log(suggestedUsers);
   }, [showToast]);
 
   return (
@@ -39,6 +40,7 @@ const SuggestedUsers = () => {
           suggestedUsers.map((user) => (
             <SuggestedUser key={user._id} user={user} />
           ))}
+           
         {loading &&
           [0, 1, 2, 3, 4].map((_, idx) => (
             <Flex
