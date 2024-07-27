@@ -86,20 +86,20 @@ const UserPage = () => {
       )}
 
       {!fetchingProducts && products.length === 0 && <h1>User has no products.</h1>}
-      {fetchingProducts && (
+      {/* {fetchingProducts && (
         <Flex justifyContent={"center"} my={12}>
           <Spinner size={"xl"} />
         </Flex>
-      )}
-      {myProducts
+      )} */}
+      {/* {myProducts
         ? products.map((product) => (
             <Product
               key={product.id}
               product={product}
               postedBy={product.postedBy}
             />
-          ))
-        : posts.map((post) => (
+          )) */}
+    { posts.map((post) => (
             <Post key={post.id} post={post} postedBy={post.postedBy} />
           ))}
     </>
