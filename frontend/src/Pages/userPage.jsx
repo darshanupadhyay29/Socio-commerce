@@ -8,7 +8,7 @@ import useGetUserProfile from "../../hooks/useGetUserProfile";
 import { useRecoilState } from "recoil";
 import postsAtom from "../../atoms/postAtoms";
 import productAtom from "../../atoms/productAtoms";
-import Product from "../../../backend/models/productModel";
+import Product from "../Components/product";
 
 const UserPage = () => {
   const { user, loading } = useGetUserProfile();
@@ -86,20 +86,20 @@ const UserPage = () => {
       )}
 
       {!fetchingProducts && products.length === 0 && <h1>User has no products.</h1>}
-      {/* {fetchingProducts && (
+      {fetchingProducts && (
         <Flex justifyContent={"center"} my={12}>
           <Spinner size={"xl"} />
         </Flex>
-      )} */}
-      {/* {myProducts
+      )}
+      {myProducts
         ? products.map((product) => (
             <Product
               key={product.id}
               product={product}
               postedBy={product.postedBy}
             />
-          )) */}
-    { posts.map((post) => (
+          ))
+    : posts.map((post) => (
             <Post key={post.id} post={post} postedBy={post.postedBy} />
           ))}
     </>

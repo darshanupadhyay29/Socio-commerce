@@ -59,4 +59,27 @@ const getUserProducts = async (req, res) => {
     }
 }
 
-export { sellProduct,getUserProducts};
+
+const getAllProducts = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const feedProducts = await Product.find({
+      postedBy: { $ne: userId },
+    }).sort({
+      createdAt: -1,
+    });
+      console.log(feedProducts)
+      console.log(userId)
+    res.status(200).json(feedProducts);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
+export { sellProduct, getUserProducts, getAllProducts };

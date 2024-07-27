@@ -10,6 +10,7 @@ import authScreenAtom from "../../atoms/authAtom";
 import { BsFillChatQuoteFill } from "react-icons/bs";
 import { MdOutlineSettings } from "react-icons/md";
 import { WiMoonAltFirstQuarter } from "react-icons/wi";
+import { FaCartShopping } from "react-icons/fa6";
 
 const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -20,9 +21,14 @@ const Header = () => {
   return (
     <Flex justifyContent={"space-between"} mt={6} mb="12">
       {user && (
-        <Link as={RouterLink} to="/">
-          <AiFillHome size={24} />
-        </Link>
+        <>
+          <Link as={RouterLink} to="/">
+            <AiFillHome size={24} />
+          </Link>
+          <Link as={RouterLink} to="/marketPlace">
+            <FaCartShopping size={24} />
+          </Link>
+        </>
       )}
       {!user && (
         <Link

@@ -12,6 +12,7 @@ import CreatePost from "./Components/CreatePost";
 import ChatPage from "./Pages/ChatPage";
 import { SettingsPage } from "./Pages/SettingsPage";
 import SellProduct from "./Components/SellProduct";
+import MarketPlace from "./Pages/MarketPlace";
 
 function App() {
     const user = useRecoilValue(userAtom);
@@ -23,6 +24,7 @@ function App() {
                 <Header />
                 <Routes>
                     <Route path='/' element={user ? <HomePage /> : <Navigate to='/auth' />} />
+                    <Route path='/marketplace' element={user ? <MarketPlace /> : <Navigate to='/auth' />} />
                     <Route path='/auth' element={!user ? <AuthPage /> : <Navigate to='/' />} />
                     <Route path='/update' element={user ? <UpdateProfilePage /> : <Navigate to='/auth' />} />
 
