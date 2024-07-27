@@ -1,5 +1,5 @@
 import Post from "../models/postModel.js";
-import User from "../models/UserModel.js";
+import User from "../models/ExistingUserModel.js";
 import { v2 as cloudinary } from "cloudinary";
 
 const createPost = async (req, res) => {
@@ -44,7 +44,6 @@ const createPost = async (req, res) => {
   }
 };
 
-
 const getPost = async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -58,7 +57,6 @@ const getPost = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
 
 const deletePost = async (req, res) => {
   try {
@@ -112,7 +110,6 @@ const likeUnlikePost = async (req, res) => {
   }
 };
 
-
 const replyToPost = async (req, res) => {
   try {
     const { text } = req.body;
@@ -141,7 +138,6 @@ const replyToPost = async (req, res) => {
   }
 };
 
-
 const getFeedPosts = async (req, res) => {
   try {
     const userId = req.user._id;
@@ -156,7 +152,7 @@ const getFeedPosts = async (req, res) => {
       createdAt: -1,
     });
 
-      res.status(200).json( feedPosts );
+    res.status(200).json(feedPosts);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -179,7 +175,6 @@ const getUserPosts = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 export {
   createPost,

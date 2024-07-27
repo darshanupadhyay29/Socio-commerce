@@ -1,4 +1,4 @@
-import User from "../models/UserModel.js";
+import User from "../models/ExistingUserModel.js";
 import bcrypt from "bcryptjs";
 import generateTokenAndSetCookie from "../utils/helpers/generateTokenAndSetCookie.js";
 import { v2 as cloudinary } from "cloudinary";
@@ -34,7 +34,6 @@ const getUserProfile = async (req, res) => {
   }
 };
 
-
 const signupUser = async (req, res) => {
   try {
     const { name, email, username, password } = req.body;
@@ -54,8 +53,8 @@ const signupUser = async (req, res) => {
     });
     await newUser.save();
 
-      if (newUser) {
-        generateTokenAndSetCookie(newUser._id, res);
+    if (newUser) {
+      generateTokenAndSetCookie(newUser._id, res);
 
       res.status(201).json({
         _id: newUser._id,
@@ -150,7 +149,6 @@ const followUnFollowUser = async (req, res) => {
   }
 };
 
-
 const getSuggestedUsers = async (req, res) => {
   try {
     // exclude the current user from suggested users array and exclude users that current user is already following
@@ -183,7 +181,7 @@ const getSuggestedUsers = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const { name, email, username, password, bio } = req.body;
-   let { profilePic } = req.body;
+  let { profilePic } = req.body;
 
   const userId = req.user._id;
   try {
@@ -216,13 +214,11 @@ const updateUser = async (req, res) => {
     user.email = email || user.email;
     user.username = username || user.username;
     user.profilePic = profilePic || user.profilePic;
-      user.bio = bio || user.bio;
-      
-      
+    user.bio = bio || user.bio;
 
     user = await user.save();
 
-   // Find all posts that this user replied and update username and userProfilePic fields
+    // Find all posts that this user replied and update username and userProfilePic fields
     await Post.updateMany(
       { "replies.userId": userId },
       {
@@ -235,7 +231,7 @@ const updateUser = async (req, res) => {
     );
 
     //password should be null in response
-      user.password = null;
+    user.password = null;
 
     res.status(200).json(user);
   } catch (err) {
@@ -256,9 +252,8 @@ const freezeAccount = async (req, res) => {
 
     res.status(200).json({ success: true });
   } catch (error) {
-       console.log(error.message);
-      res.status(500).json({ error: error.message });
-     
+    console.log(error.message);
+    res.status(500).json({ error: error.message });
   }
 };
 
