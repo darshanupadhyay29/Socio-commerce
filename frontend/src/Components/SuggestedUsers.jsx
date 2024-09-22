@@ -37,7 +37,7 @@ const SuggestedUsers = () => {
       </Text>
       <Flex direction={"column"} gap={4}>
         {!loading &&
-          suggestedUsers.map((user) => (
+          suggestedUsers?.map((user) => (
             <SuggestedUser key={user._id} user={user} />
           ))}
            
