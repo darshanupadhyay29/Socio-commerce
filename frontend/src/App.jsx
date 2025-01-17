@@ -1,6 +1,7 @@
 import { Box, Button, Container } from "@chakra-ui/react"
 import UserPage from "./Pages/userPage";
 import PostPage from "./Pages/postPage";
+import ProductPage from "./Pages/ProductPage";
 import Header from "./Components/Header";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import HomePage from "./Pages/homePage";
@@ -43,6 +44,7 @@ function App() {
                         }
                     />
                     <Route path='/:username/post/:pid' element={<PostPage />} />
+                    <Route path='/:username/product/:productId' element={<ProductPage />} />
                     <Route path='/chat' element={user ? <ChatPage /> : <Navigate to={"/auth"} />} />
                     <Route path='/settings' element={user ? <SettingsPage /> : <Navigate to={"/auth"} />} />
                 </Routes>

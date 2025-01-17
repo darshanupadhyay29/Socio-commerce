@@ -18,7 +18,7 @@ const UserPage = () => {
     const [fetchingPosts, setFetchingPosts] = useState(true);
     const [fetchingProducts, setFetchingProducts] = useState(true);
     const [products, setProducts] = useRecoilState(productAtom);
-    const [myProducts, setSelectProducts] = useState(false);
+    const [showProducts, setShowProducts] = useState(false);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -74,24 +74,26 @@ const UserPage = () => {
     <>
       <UserHeader
         user={user}
-        setSelectProducts={setSelectProducts}
-        myProducts={myProducts}
+        setShowProducts={setShowProducts}
+        showProducts={showProducts}
       />
 
-      {!fetchingPosts && posts.length === 0 && <h1>User has no posts.</h1>}
+      {!showProducts && !fetchingPosts && posts.length === 0 && <h1>No posts!</h1>}
       {fetchingPosts && (
         <Flex justifyContent={"center"} my={12}>
           <Spinner size={"xl"} />
         </Flex>
       )}
 
-      {!fetchingProducts && products.length === 0 && <h1>User has no products.</h1>}
+      {showProducts && !fetchingProducts && products.length === 0 && (
+        <h1>No products!</h1>
+      )}
       {fetchingProducts && (
         <Flex justifyContent={"center"} my={12}>
           <Spinner size={"xl"} />
         </Flex>
       )}
-      {myProducts
+      {showProducts
         ? products.map((product) => (
             <Product
               key={product.id}
@@ -99,7 +101,7 @@ const UserPage = () => {
               postedBy={product.postedBy}
             />
           ))
-    : posts.map((post) => (
+        : posts.map((post) => (
             <Post key={post.id} post={post} postedBy={post.postedBy} />
           ))}
     </>

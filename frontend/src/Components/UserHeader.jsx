@@ -9,7 +9,7 @@ import userAtom from "../../atoms/userAtom";
 import { Link as RouterLink } from "react-router-dom";
 import useFollowUnfollow from "../../hooks/useFollowUnfollow";
 
-const UserHeader = ({ user,setSelectProducts,myProducts }) => {
+const UserHeader = ({ user,setShowProducts,showProducts }) => {
   const toast = useToast();
   const currentUser = useRecoilValue(userAtom); // logged in user
     const { handleFollowUnfollow, following, updating } = useFollowUnfollow(user);
@@ -110,26 +110,26 @@ const UserHeader = ({ user,setSelectProducts,myProducts }) => {
       <Flex w={"full"}>
         <Flex
           flex={1}
-          borderBottom={myProducts ? "1.5px solid black" : "1.5px solid white"}
+          borderBottom={showProducts ? "1.5px solid black" : "1.5px solid white"}
           justifyContent={"center"}
           pb="3"
           cursor={"pointer"}
-          color={myProducts ? "grey" : "white"}
+          color={showProducts ? "grey" : "white"}
         >
-          <Text fontWeight={"bold"} onClick={() => setSelectProducts(false)}>
+          <Text fontWeight={"bold"} onClick={() => setShowProducts(false)}>
             {" "}
             Posts
           </Text>
         </Flex>
         <Flex
           flex={1}
-          borderBottom={myProducts ? "1.5px solid white" : "1.5px solid black"}
+          borderBottom={showProducts ? "1.5px solid white" : "1.5px solid black"}
           justifyContent={"center"}
-          color={myProducts ? "white" : "grey"}
+          color={showProducts ? "white" : "grey"}
           pb="3"
           cursor={"pointer"}
         >
-          <Text fontWeight={"bold"} onClick={() => setSelectProducts(true)}>
+          <Text fontWeight={"bold"} onClick={() => setShowProducts(true)}>
             {" "}
             Products
           </Text>

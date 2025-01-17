@@ -151,7 +151,6 @@ const followUnFollowUser = async (req, res) => {
 
 const getSuggestedUsers = async (req, res) => {
   try {
-    // exclude the current user from suggested users array and exclude users that current user is already following
     const userId = req.user._id;
 
     const usersFollowedByYou = await User.findById(userId).select("following");
@@ -168,8 +167,9 @@ const getSuggestedUsers = async (req, res) => {
     ]);
     const filteredUsers = users.filter(
       (user) => !usersFollowedByYou.following.includes(user._id)
-    );
-    const suggestedUsers = filteredUsers.slice(0, 4);
+      );
+      let suggestedUsers = [];
+     suggestedUsers = filteredUsers.slice(0, 4);
 
     suggestedUsers.forEach((user) => (user.password = null));
 
