@@ -22,8 +22,7 @@ const MarketPlace = () => {
             
           return;
         }
-        console.log(data);
-        setProducts(data);
+          setProducts(data);
       } catch (error) {
           console.log(error.message);
         showToast("Error", error.message, "error");
@@ -61,7 +60,6 @@ const MarketPlace = () => {
             md: "block",
           }}
         >
-          {/* <SuggestedUsers /> */}
         </Box>
       </Flex>
     </>

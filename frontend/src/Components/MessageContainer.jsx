@@ -19,7 +19,7 @@ import {
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import userAtom from "../../atoms/userAtom.js";
  import { useSocket } from "../../context/socketContext.jsx";
-// import messageSound from "../assets/sounds/message.mp3";
+
 const MessageContainer = () => {
   const showToast = useShowToast();
   const selectedConversation = useRecoilValue(selectedConversationAtom);
@@ -34,12 +34,6 @@ const MessageContainer = () => {
     socket.on("newMessage", (message) => {
       if (selectedConversation._id === message.conversationId) {
         setMessages((prev) => [...prev, message]);
-      }
-
-      // make a sound if the window is not focused
-      if (!document.hasFocus()) {
-        const sound = new Audio(messageSound);
-        sound.play();
       }
 
       setConversations((prev) => {

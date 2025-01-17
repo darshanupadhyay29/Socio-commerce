@@ -59,9 +59,9 @@ const Product = ({ product, postedBy }) => {
 
   if (!user) return null;
   return (
-    <Link to={`/${user.username}/products/${product._id}`}>
+    <Link to={`/${user.username}/product/${product._id}`}>
       <Flex gap={3} mb={4} py={5}>
-        <Flex flexDirection={"column"} alignItems={"center"}>
+        {/* <Flex flexDirection={"column"} alignItems={"center"}>
           <Avatar
             size="md"
             name={user.name}
@@ -72,48 +72,10 @@ const Product = ({ product, postedBy }) => {
             }}
           />
           <Box w="1px" h={"full"} bg="gray.light" my={2}></Box>
-          {/* <Box position={"relative"} w={"full"}> */}
-            {/* {post.replies.length === 0 && <Text textAlign={"center"}>🥱</Text>}
-            {post.replies[0] && (
-              <Avatar
-                size="xs"
-                name="John doe"
-                src={post.replies[0].userProfilePic}
-                position={"absolute"}
-                top={"0px"}
-                left="15px"
-                padding={"2px"}
-              />
-            )} */}
-
-            {/* {post.replies[1] && (
-              <Avatar
-                size="xs"
-                name="John doe"
-                src={post.replies[1].userProfilePic}
-                position={"absolute"}
-                bottom={"0px"}
-                right="-5px"
-                padding={"2px"}
-              />
-            )} */}
-
-            {/* {post.replies[2] && (
-              <Avatar
-                size="xs"
-                name="John doe"
-                src={post.replies[2].userProfilePic}
-                position={"absolute"}
-                bottom={"0px"}
-                left="4px"
-                padding={"2px"}
-              />
-            )} */}
-          {/* </Box> */}
-        </Flex>
+        </Flex> */}
         <Flex flex={1} flexDirection={"column"} gap={2}>
           <Flex justifyContent={"space-between"} w={"full"}>
-            <Flex w={"full"} alignItems={"center"}>
+            {/* <Flex w={"full"} alignItems={"center"}>
               <Text
                 fontSize={"sm"}
                 fontWeight={"bold"}
@@ -125,8 +87,8 @@ const Product = ({ product, postedBy }) => {
                 {user?.username}
               </Text>
               <Image src="/verified.png" w={4} h={4} ml={1} />
-            </Flex>
-            <Flex gap={4} alignItems={"center"}>
+            </Flex> */}
+            {/* <Flex gap={4} alignItems={"center"}>
               <Text
                 fontSize={"xs"}
                 width={36}
@@ -134,29 +96,31 @@ const Product = ({ product, postedBy }) => {
                 color={"gray.light"}
               >
                 {formatDistanceToNow(new Date(product.createdAt))} ago
-              </Text>
+              </Text> */}
 
-              {/* {currentUser?._id === user._id && (
+            {/* {currentUser?._id === user._id && (
                 <DeleteIcon size={20} onClick={handleDeleteProduct} />
               )} */}
-            </Flex>
+            {/* </Flex> */}
           </Flex>
 
-          <Text fontSize={"sm"}>{product.description}</Text>
+          <Text fontStyle={"normal"}>
+            {product.title}
+            {" • "}
+            {product.price} ₹
+          </Text>
           {product.img && (
-            <Box
-              borderRadius={6}
-              overflow={"hidden"}
-              border={"1px solid"}
-              borderColor={"gray.light"}
-            >
-              <Image src={product.img} w={"full"} />
-            </Box>
+            <>
+              <Box
+                borderRadius={6}
+                overflow={"hidden"}
+                border={"1px solid"}
+                borderColor={"gray.light"}
+              >
+                <Image src={product.img} w={"full"} />
+              </Box>
+            </>
           )}
-
-          {/* <Flex gap={3} my={1}>
-            <Actions product={post} />
-          </Flex> */}
         </Flex>
       </Flex>
     </Link>
